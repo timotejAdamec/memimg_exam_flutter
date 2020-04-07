@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_screenutil: ^0.7.0
   responsive_builder: ^0.1.4
+  get_it:
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,10 @@ flutter:
           weight: 800
         - asset: assets/fonts/OpenSans-Regular.ttf
           weight: 400
+
+    - family: lineto circular
+      fonts:
+        - asset: assets/fonts/lineto_circular_black.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

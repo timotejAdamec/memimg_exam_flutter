@@ -27,28 +27,33 @@ class CourseDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'RECOG TEST.',
+              'Image memorisation exam.',
               style: TextStyle(
                   fontWeight: FontWeight.w800,
                   height: 0.9,
-                  fontSize: titleSize),
+                  fontSize: titleSize,
+                  color: Colors.white),
               textAlign: textAlignment,
             ),
-            Text(
-              'GOOD LUCK!',
+            /*Text(
+              'Good luck!',
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   height: 0.9,
-                  fontSize: titleSize - 20),
+                  fontSize: titleSize - 20,
+                  color: Colors.white),
               textAlign: textAlignment,
-            ),
+            ),*/
             SizedBox(
               height: 30,
             ),
             Text(
-              "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed convallis magna eu semLorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed convallis magna eu sem. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Integer lacinia. Nulla quis diam.",
-              style: TextStyle(fontSize: descriptionSize, height: 1.7),
-            )
+                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed convallis magna eu semLorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed convallis magna eu sem. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Integer lacinia. Nulla quis diam.",
+                style: TextStyle(
+                    fontSize: descriptionSize,
+                    height: 1.7,
+                    color: Colors.white),
+                textAlign: textAlignment)
           ],
         ),
       );
