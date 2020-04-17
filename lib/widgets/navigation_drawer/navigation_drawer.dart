@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/widgets/navbar_item/navbar_item.dart';
-import 'package:flutter_poznavacka/widgets/navbar_item/navbar_item.dart';
-import 'package:flutter_poznavacka/widgets/navigation_drawer/drawer_item.dart';
 import 'package:flutter_poznavacka/widgets/navigation_drawer/navigation_drawer_header.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -20,10 +18,11 @@ class NavigationDrawer extends StatelessWidget {
         children: <Widget>[
           NavigationDrawerHeader(),
           //DrawerItem('Why', Icons.question_answer),
-          DrawerItem('About', Icons.help, AboutRoute),
+          //DrawerItem('About', Icons.help, AboutRoute),
           NavBarItem(
             'About',
             AboutRoute,
+            icon: (Icon(Icons.help, color: Colors.white,)),
           )
         ],
       ),

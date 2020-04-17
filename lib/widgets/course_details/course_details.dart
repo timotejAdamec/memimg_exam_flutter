@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_poznavacka/styles/text_styles.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class CourseDetails extends StatelessWidget {
@@ -11,14 +12,14 @@ class CourseDetails extends StatelessWidget {
           sizingInformation.deviceScreenType == DeviceScreenType.Desktop
               ? TextAlign.left
               : TextAlign.center;
-      double titleSize =
+      /*double titleSize =
           sizingInformation.deviceScreenType == DeviceScreenType.Mobile
               ? 50
               : 80;
       double descriptionSize =
           sizingInformation.deviceScreenType == DeviceScreenType.Mobile
               ? 16
-              : 21;
+              : 21;*/
 
       return Container(
         width: 600,
@@ -28,11 +29,7 @@ class CourseDetails extends StatelessWidget {
           children: <Widget>[
             Text(
               'Image memorisation exam.',
-              style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  height: 0.9,
-                  fontSize: titleSize,
-                  color: Colors.white),
+              style: titleTextStyle(sizingInformation.deviceScreenType),
               textAlign: textAlignment,
             ),
             /*Text(
@@ -48,11 +45,8 @@ class CourseDetails extends StatelessWidget {
               height: 30,
             ),
             Text(
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed convallis magna eu semLorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed convallis magna eu sem. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Integer lacinia. Nulla quis diam.",
-                style: TextStyle(
-                    fontSize: descriptionSize,
-                    height: 1.7,
-                    color: Colors.white),
+              "Join an exam by entering the pin provided by the user that started the exam (e.g., teacher)",
+                style: descriptionTextStyle(sizingInformation.deviceScreenType),
                 textAlign: textAlignment)
           ],
         ),

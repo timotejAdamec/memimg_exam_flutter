@@ -12,7 +12,7 @@ class HomeContentDesktop extends StatelessWidget {
         CourseDetails(),
         Expanded(
             child: Center(
-          child: CallToAction('JOIN TEST'),
+          child: CallToAction('Join Exam'),
         ))
       ],
     );
