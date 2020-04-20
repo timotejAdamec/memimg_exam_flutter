@@ -16,21 +16,16 @@ class RepresentativeDetailsDesktop extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Expanded(
-          child: SizedBox(
-            height: 300,
-            child: Center(
-              child: Image.network(
-                model.imageUrl,
-                fit: BoxFit.contain,
-              ),
+          child: Center(
+            child: Image.network(
+              model.imageUrl,
+              fit: BoxFit.contain,
             ),
           ),
         ),
         Expanded(
-          child: SizedBox(
-                      child: Center(
-              child: ListAnswerFields(model.infoArr),
-            ),
+          child: Center(
+            child: ListAnswerFields(model.infoArr),
           ),
         )
       ],

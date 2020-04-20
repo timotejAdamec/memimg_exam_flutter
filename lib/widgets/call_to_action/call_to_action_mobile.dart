@@ -29,7 +29,9 @@ class CallToActionMobile extends StatelessWidget {
                       hintText: 'Enter PIN',
                       hintStyle: TextStyle(color: Colors.grey),
                       border: InputBorder.none),
-                  style: TextStyle(color: colorPrimaryDark, textBaseline: TextBaseline.alphabetic),
+                  style: TextStyle(
+                      color: colorPrimaryDark,
+                      textBaseline: TextBaseline.alphabetic),
                   textAlign: TextAlign.center,
                 ),
               ),
