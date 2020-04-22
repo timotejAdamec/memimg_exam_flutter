@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
+import 'package:flutter_poznavacka/datamodels/exam_enter_info.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
 
 import '../../locator.dart';
 
-class CallToActionMobile extends StatelessWidget {
+class CallToActionMobile extends StatefulWidget {
+  CallToActionMobile(
+    this.title, {
+    Key key,
+  }) : super(key: key);
   final String title;
-  const CallToActionMobile(this.title);
 
   @override
+  _CallToActionState createState() => _CallToActionState();
+}
+
+class _CallToActionState extends State<CallToActionMobile> {
+  @override
   Widget build(BuildContext context) {
+    final myController = TextEditingController();
+
+    @override
+    void dispose() {
+      // Clean up the controller when the widget is disposed.
+      myController.dispose();
+      super.dispose();
+    }
+
     return SizedBox(
       //padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
       height: 100,
@@ -46,12 +64,15 @@ class CallToActionMobile extends StatelessWidget {
             flex: 5,
             child: GestureDetector(
               onTap: () {
-                locator<NavigationService>().navigateTo(ExamRoute);
+                var pin = myController.text;
+                dispose();
+                locator<NavigationService>()
+                    .navigateToWithExamInfo(ExamRoute, ExamEnterInfo(pin));
               },
               child: Container(
                 child: Center(
                   child: Text(
-                    title,
+                    this.widget.title,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,

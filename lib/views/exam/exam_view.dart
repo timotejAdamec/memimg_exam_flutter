@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
+import 'package:flutter_poznavacka/datamodels/exam_enter_info.dart';
 import 'package:flutter_poznavacka/datamodels/representative_details_model.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
@@ -8,6 +9,9 @@ import 'package:flutter_poznavacka/widgets/representative_details/representative
 import '../../locator.dart';
 
 class ExamView extends StatefulWidget {
+  final String pin;
+
+  ExamView({Key key, this.pin}) : super(key: key);
   @override
   _ExamViewState createState() => _ExamViewState();
 }
@@ -23,9 +27,12 @@ class _ExamViewState extends State<ExamView> {
 
   @override
   void initState() {
+    final ExamEnterInfo args = ModalRoute.of(context).settings.arguments;
+
     List infoArr = new List();
     infoArr.add("Slon");
     infoArr.add("chobotnatci");
+    infoArr.add(args.pin);
 
     List infoArr1 = new List();
     infoArr1.add("Slon1");

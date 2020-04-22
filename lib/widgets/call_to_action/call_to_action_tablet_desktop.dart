@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
+import 'package:flutter_poznavacka/datamodels/exam_enter_info.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
 
 import '../../locator.dart';
 
-class CallToActionTabletDesktop extends StatelessWidget {
+class CallToActionTabletDesktop extends StatefulWidget {
+  CallToActionTabletDesktop(
+    this.title, {
+    Key key,
+  }) : super(key: key);
   final String title;
-  const CallToActionTabletDesktop(this.title);
+
+  @override
+  _CallToActionTabletDesktopState createState() =>
+      _CallToActionTabletDesktopState();
+}
+
+class _CallToActionTabletDesktopState extends State<CallToActionTabletDesktop> {
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +46,15 @@ class CallToActionTabletDesktop extends StatelessWidget {
                   textInputAction: TextInputAction.go,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      hintText: 'Enter PIN',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: InputBorder.none,
-                      ),
-                  style: TextStyle(color: colorPrimaryDark, textBaseline: TextBaseline.alphabetic),
+                    hintText: 'Enter PIN',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                  ),
+                  style: TextStyle(
+                      color: colorPrimaryDark,
+                      textBaseline: TextBaseline.alphabetic),
                   textAlign: TextAlign.center,
+                  controller: myController,
                 ),
               ),
               decoration: BoxDecoration(
@@ -46,12 +68,15 @@ class CallToActionTabletDesktop extends StatelessWidget {
             flex: 5,
             child: GestureDetector(
               onTap: () {
-                locator<NavigationService>().navigateTo(ExamRoute);
+                var pin = myController.text;
+                dispose();
+                locator<NavigationService>()
+                    .navigateToWithExamInfo(ExamRoute, ExamEnterInfo(pin));
               },
               child: Container(
                 child: Center(
                   child: Text(
-                    title,
+                    this.widget.title,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
