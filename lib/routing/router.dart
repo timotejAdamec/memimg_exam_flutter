@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_poznavacka/views/about/about_view.dart';
+import 'package:flutter_poznavacka/views/privacy/privacy_view.dart';
 import 'package:flutter_poznavacka/views/exam/exam_view.dart';
 import 'package:flutter_poznavacka/views/home/home_view.dart';
 
@@ -9,8 +9,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case HomeRoute:
       return _getPageRoute(HomeView(), settings);
-    case AboutRoute:
-      return _getPageRoute(AboutView(), settings);
+    case PrivacyRoute:
+      return _getPageRoute(PrivacyView(), settings);
     case ExamRoute:
       return _getPageRoute(ExamView(), settings);
     default:

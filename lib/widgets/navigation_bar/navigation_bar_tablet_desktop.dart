@@ -22,8 +22,8 @@ class NavigationBarTabletDesktop extends StatelessWidget {
                 width: 60,
               ),*/
               NavBarItem(
-                'About',
-                AboutRoute,
+                'Privacy',
+                PrivacyRoute,
                 icon: (Icon(
                   Icons.help,
                   color: Colors.white,

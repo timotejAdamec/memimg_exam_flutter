@@ -20,9 +20,12 @@ class NavigationDrawer extends StatelessWidget {
           //DrawerItem('Why', Icons.question_answer),
           //DrawerItem('About', Icons.help, AboutRoute),
           NavBarItem(
-            'About',
-            AboutRoute,
-            icon: (Icon(Icons.help, color: Colors.white,)),
+            'Privacy',
+            PrivacyRoute,
+            icon: (Icon(
+              Icons.help,
+              color: Colors.white,
+            )),
           )
         ],
       ),

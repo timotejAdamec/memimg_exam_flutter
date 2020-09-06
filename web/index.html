@@ -6,9 +6,34 @@
 </head>
 <body>
 
-<script src="/__/firebase/7.14.1/firebase-app.js"></script>
+<!-- <script src="/__/firebase/7.14.1/firebase-app.js"></script>
 <script src="/__/firebase/7.14.1/firebase-firestore.js"></script>
-<script src="/__/firebase/init.js"></script>
+<script src="/__/firebase/init.js"></script> -->
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBVCIsm12PVFnawOlsV7f2YPGXmaFjlmf8",
+    authDomain: "poznavacka-dd333.firebaseapp.com",
+    databaseURL: "https://poznavacka-dd333.firebaseio.com",
+    projectId: "poznavacka-dd333",
+    storageBucket: "poznavacka-dd333.appspot.com",
+    messagingSenderId: "882289086797",
+    appId: "1:882289086797:web:70092ba19f44461c576704",
+    measurementId: "G-H1DPCSFEQ2"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 
 <script src="main.dart.js" type="application/javascript"></script>
 
