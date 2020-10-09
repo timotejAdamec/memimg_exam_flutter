@@ -1,6 +1,13 @@
 {
   "hosting": {
     "public": "build/web",
+    "appAssociation": "AUTO",
+    "rewrites": [
+      {
+        "source": "/share/**",
+        "dynamicLinks": true
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
