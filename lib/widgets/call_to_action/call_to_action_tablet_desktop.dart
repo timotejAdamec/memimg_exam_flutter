@@ -3,6 +3,7 @@ import 'package:flutter_poznavacka/constants/app_colors.dart';
 import 'package:flutter_poznavacka/datamodels/exam_enter_info.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
+import 'package:flutter_poznavacka/routing/router.dart' as route;
 
 import '../../locator.dart';
 
@@ -69,9 +70,10 @@ class _CallToActionTabletDesktopState extends State<CallToActionTabletDesktop> {
             child: GestureDetector(
               onTap: () {
                 var pin = myController.text;
+                debugPrint("pin = " + pin);
                 dispose();
                 locator<NavigationService>()
-                    .navigateToWithExamInfo(ExamRoute, ExamEnterInfo(pin));
+                    .navigateToWithExamInfo(ExamRoute, pin);
               },
               child: Container(
                 child: Center(

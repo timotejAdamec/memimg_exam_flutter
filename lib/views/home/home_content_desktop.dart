@@ -5,7 +5,7 @@ import 'package:flutter_poznavacka/widgets/course_details/course_details.dart';
 class HomeContentDesktop extends StatelessWidget {
   const HomeContentDesktop({Key key}) : super(key: key);
 
-  /*@override
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
@@ -16,8 +16,9 @@ class HomeContentDesktop extends StatelessWidget {
         ))
       ],
     );
-  }*/
+  }
 
+/*
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,5 +36,5 @@ Your continued use of our website will be regarded as acceptance of our practice
 This policy is effective as of 1 June 2020. ''',
       style: TextStyle(color: Colors.white),
     ));
-  }
+  }*/
 }

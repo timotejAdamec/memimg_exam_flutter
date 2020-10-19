@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
 import 'package:flutter_poznavacka/locator.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
-import 'package:flutter_poznavacka/routing/router.dart';
+import 'package:flutter_poznavacka/routing/router.dart' as route;
 import 'package:flutter_poznavacka/services/navigation_service.dart';
 import 'package:flutter_poznavacka/widgets/centered_view/centered_view.dart';
 import 'package:flutter_poznavacka/widgets/navigation_bar/navigation_bar.dart';
@@ -27,7 +27,7 @@ class LayoutTemplate extends StatelessWidget {
               Expanded(
                 child: Navigator(
                   key: locator<NavigationService>().navigatorKey,
-                  onGenerateRoute: generateRoute,
+                  onGenerateRoute: route.Router.generateRoute,
                   initialRoute: HomeRoute,
                 ),
               )

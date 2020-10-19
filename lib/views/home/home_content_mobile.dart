@@ -5,7 +5,7 @@ import 'package:flutter_poznavacka/widgets/course_details/course_details.dart';
 class HomeContentMobile extends StatelessWidget {
   const HomeContentMobile({Key key}) : super(key: key);
 
-  /*@override
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -22,8 +22,8 @@ class HomeContentMobile extends StatelessWidget {
         ))
       ],
     );
-  }*/
-
+  }
+/*
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -41,5 +41,5 @@ Your continued use of our website will be regarded as acceptance of our practice
 This policy is effective as of 1 June 2020. ''',
       style: TextStyle(color: Colors.white),
     ));
-  }
+  }*/
 }

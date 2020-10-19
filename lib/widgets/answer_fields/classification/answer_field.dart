@@ -5,9 +5,9 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'answer_field_mobile.dart';
 import 'anwser_field_tablet_dekstop.dart';
 
-class AnswerField extends StatelessWidget {
+class ClassificationAnswerField extends StatelessWidget {
   final String answerName;
-  const AnswerField(
+  const ClassificationAnswerField(
     this.answerName, {
     Key key,
   }) : super(key: key);

@@ -8,10 +8,9 @@ class NavigationService {
     return navigatorKey.currentState.pushNamed(routeName);
   }
 
-  Future<dynamic> navigateToWithExamInfo(
-      String routeName, ExamEnterInfo examEnterInfo) {
-    return navigatorKey.currentState
-        .pushNamed(routeName, arguments: examEnterInfo);
+  Future<dynamic> navigateToWithExamInfo(String routeName, String pin) {
+    debugPrint("pin_navigation_service = " + pin);
+    return navigatorKey.currentState.pushNamed(routeName, arguments: pin);
   }
 
   void goBack() {

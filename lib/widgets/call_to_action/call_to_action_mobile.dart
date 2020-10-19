@@ -50,6 +50,7 @@ class _CallToActionState extends State<CallToActionMobile> {
                   style: TextStyle(
                       color: colorPrimaryDark,
                       textBaseline: TextBaseline.alphabetic),
+                  controller: myController,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -65,9 +66,10 @@ class _CallToActionState extends State<CallToActionMobile> {
             child: GestureDetector(
               onTap: () {
                 var pin = myController.text;
+                debugPrint("pin = " + pin);
                 dispose();
                 locator<NavigationService>()
-                    .navigateToWithExamInfo(ExamRoute, ExamEnterInfo(pin));
+                    .navigateToWithExamInfo(ExamRoute, pin);
               },
               child: Container(
                 child: Center(
