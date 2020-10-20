@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/locator.dart';
+import 'package:flutter_poznavacka/routing/route_names.dart';
+import 'package:flutter_poznavacka/routing/router.dart' as router;
+import 'package:flutter_poznavacka/services/navigation_service.dart';
 import 'package:flutter_poznavacka/views/layout_template/layout_template.dart';
 
 void main() {
@@ -18,6 +21,9 @@ class MyApp extends StatelessWidget {
             textTheme: Theme.of(context)
                 .textTheme
                 .apply(fontFamily: 'lineto circular')),
+        /*navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.Router.generateRoute,
+        initialRoute: HomeRoute,*/
         home: LayoutTemplate());
   }
 }

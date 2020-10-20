@@ -5,16 +5,40 @@ import 'package:flutter_poznavacka/views/home/home_view.dart';
 
 import 'route_names.dart';
 
-Route<dynamic> generateRoute(RouteSettings settings) {
-  switch (settings.name) {
-    case HomeRoute:
-      return _getPageRoute(HomeView(), settings);
-    case PrivacyRoute:
-      return _getPageRoute(PrivacyView(), settings);
-    case ExamRoute:
-      return _getPageRoute(ExamView(), settings);
-    default:
-      return _getPageRoute(HomeView(), settings);
+class Router {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case HomeRoute:
+        return MaterialPageRoute(builder: (_) => HomeView());
+      case PrivacyRoute:
+        return MaterialPageRoute(builder: (_) => PrivacyView());
+      case ExamRoute:
+        print("pin_ExamRoute_Router = " + settings.arguments);
+        return MaterialPageRoute(
+            builder: (_) => ExamView(pin: settings.arguments));
+      default:
+        return MaterialPageRoute(
+            builder: (_) => Scaffold(
+                  body: Center(
+                      child: Text('No route defined for ${settings.name}')),
+                ));
+    }
+  }
+}
+
+/*
+class Router {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case HomeRoute:
+        return _getPageRoute(HomeView(), settings);
+      case PrivacyRoute:
+        return _getPageRoute(PrivacyView(), settings);
+      case ExamRoute:
+        return _getPageRoute(ExamView(), settings);
+      default:
+        return _getPageRoute(HomeView(), settings);
+    }
   }
 }
 
@@ -41,4 +65,4 @@ class _FadeRoute extends PageRouteBuilder {
               Widget child,
             ) =>
                 FadeTransition(opacity: animation, child: child));
-}
+}*/

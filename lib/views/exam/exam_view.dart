@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
-import 'package:flutter_poznavacka/datamodels/exam_enter_info.dart';
+import 'package:flutter_poznavacka/datamodels/classification_details_model.dart';
 import 'package:flutter_poznavacka/datamodels/representative_details_model.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
 import 'package:flutter_poznavacka/widgets/representative_details/representative_details.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import '../../locator.dart';
 
 class ExamView extends StatefulWidget {
@@ -22,47 +27,92 @@ class _ExamViewState extends State<ExamView> {
   var _kCurve = Curves.linear;
   var currentPageValue = 0.0;
 
-  List listOfArrs = new List();
-  List images = new List();
+  ClassificationDetailsModel classification = new ClassificationDetailsModel();
+  List<RepresentativeDetailsModel> representatives = new List();
+
+  bool _loaded = false;
+  bool _error = false;
+
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+    } catch (e) {
+      // Set `_error` state to true if Firebase initialization fails
+      print(e);
+      setState(() {
+        _error = true;
+      });
+    }
+  }
+
+  void loadFSData() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("ActiveTest")
+          .where("testCode", isEqualTo: widget.pin)
+          .limit(1)
+          .get()
+          .then((querySnapshot) {
+        QueryDocumentSnapshot doc = querySnapshot.docs.first;
+        print("content = " + doc.get("content"));
+        loadRepresentatives(doc);
+        setState(() {
+          _loaded = true;
+        });
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        _error = true;
+      });
+    }
+  }
 
   @override
   void initState() {
-    final ExamEnterInfo args = ModalRoute.of(context).settings.arguments;
-
-    List infoArr = new List();
-    infoArr.add("Slon");
-    infoArr.add("chobotnatci");
-    infoArr.add(args.pin);
-
-    List infoArr1 = new List();
-    infoArr1.add("Slon1");
-    infoArr1.add("chobotnatci1");
-
-    List elseInfoArr = new List();
-    elseInfoArr.add("Else!");
-    elseInfoArr.add("Else!!");
-    elseInfoArr.add("Else!!!");
-    elseInfoArr.add("Else!!!!");
-    elseInfoArr.add("Else!!!!!");
-    elseInfoArr.add("Else!!!!!");
-    elseInfoArr.add("Else!!!!!");
-    elseInfoArr.add("Else!!!!!");
-
-    listOfArrs.add(infoArr);
-    listOfArrs.add(infoArr1);
-    listOfArrs.add(elseInfoArr);
-
-    images.add(
-        "https://www.peva.cz/deploy/img/products/28092/vrtak_test_1_28092.png");
-    images.add(
-        "https://www.tutorialspoint.com/dart_programming/images/if_else_statement.jpg");
-    images.add("https://m.media-amazon.com/images/I/81l00MgXNRL._SS500_.jpg");
-
+    initializeFlutterFire();
+    loadFSData();
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_error) {
+      print("ExamView somethingWentWrong()");
+      return somethingWentWrong();
+    }
+
+    if (!_loaded) {
+      print("ExamView loading()");
+      return loading();
+    }
+
+    print("ExamView examViewWidget()");
+    return examViewWidget();
+  }
+
+  Widget somethingWentWrong() {
+    return Center(
+      child: Text("Error"),
+    );
+  }
+
+  Widget loading() {
+    return Center(
+        child: Loading(
+      indicator: BallPulseIndicator(),
+      size: 100,
+      color: Colors.blueAccent,
+    ));
+  }
+
+  Widget examViewWidget() {
     _controller.addListener(() {
       setState(() {
         currentPageValue = _controller.page;
@@ -85,36 +135,26 @@ class _ExamViewState extends State<ExamView> {
             itemBuilder: (context, index) {
               if (index == currentPageValue.floor()) {
                 return Transform(
-                  transform: Matrix4.identity()
-                    ..rotateX(currentPageValue - index),
-                  child: RepresentativeDetails(
-                    details: RepresentativeDetailsModel(
-                      imageUrl: images[index],
-                      infoArr: listOfArrs[index],
-                    ),
-                  ),
-                );
+                    transform: Matrix4.identity()
+                      ..rotateX(currentPageValue - index),
+                    child: RepresentativeDetails(
+                        details: representatives[index],
+                        classification: classification));
               } else if (index == currentPageValue.floor() + 1) {
                 return Transform(
                   transform: Matrix4.identity()
                     ..rotateX(currentPageValue - index),
                   child: RepresentativeDetails(
-                    details: RepresentativeDetailsModel(
-                      imageUrl: images[index],
-                      infoArr: listOfArrs[index],
-                    ),
-                  ),
+                      details: representatives[index],
+                      classification: classification),
                 );
               } else {
                 return RepresentativeDetails(
-                  details: RepresentativeDetailsModel(
-                    imageUrl: images[index],
-                    infoArr: listOfArrs[index],
-                  ),
-                );
+                    details: representatives[index],
+                    classification: classification);
               }
             },
-            itemCount: 3,
+            itemCount: representatives.length,
           ),
         ),
         Expanded(
@@ -166,7 +206,7 @@ class _ExamViewState extends State<ExamView> {
   }
 
   Widget progressFinish(var currentPage, var letterSize) {
-    if (currentPage == listOfArrs.length - 1) {
+    if (currentPage == representatives.length - 1) {
       return SizedBox(
         width: MediaQuery.of(context).size.width * 0.20 + 10,
         height: MediaQuery.of(context).size.height * 0.07,
@@ -176,10 +216,10 @@ class _ExamViewState extends State<ExamView> {
           onPressed: () {
             dismissDialog();
             /*showDialog(
-              context: context,
-              builder: (context) => finishAlert(),
-              barrierDismissible: true,
-            );*/
+                      context: context,
+                      builder: (context) => finishAlert(),
+                      barrierDismissible: true,
+                    );*/
           },
         ),
       );
@@ -187,7 +227,7 @@ class _ExamViewState extends State<ExamView> {
       return Text(
         (currentPageValue.round() + 1).toString() +
             " \\ " +
-            listOfArrs.length.toString(),
+            representatives.length.toString(),
         style: TextStyle(color: Colors.white, fontSize: letterSize),
       );
     }
@@ -226,5 +266,22 @@ class _ExamViewState extends State<ExamView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       callback();
     });
+  }
+
+  void loadRepresentatives(QueryDocumentSnapshot doc) {
+    representatives = (json.decode(doc.get("content")) as List)
+        .map((i) => RepresentativeDetailsModel.fromJson(i))
+        .toList();
+    print("predeserialization");
+    try {
+      if (doc.get("classification") == String) {
+        print("deserialization decode is String");
+        classification = ClassificationDetailsModel.fromJson(
+            jsonDecode(doc.get("classification")));
+      }
+      print("deserialization try end");
+    } catch (e) {
+      print("deserialization catch e = " + e);
+    }
   }
 }

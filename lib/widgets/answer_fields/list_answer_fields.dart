@@ -1,12 +1,17 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'answer_field.dart';
+import 'classification/answer_field.dart';
+import 'name/name_answer_field.dart';
 
 class ListAnswerFields extends StatelessWidget {
   final List infoArr;
+  final List classification;
   const ListAnswerFields(
-    this.infoArr, {
+    this.infoArr,
+    this.classification, {
     Key key,
   }) : super(key: key);
 
@@ -24,6 +29,7 @@ class ListAnswerFields extends StatelessWidget {
       }
     });
     return Scrollbar(
+      controller: _scrollController,
       isAlwaysShown: true,
       child: SingleChildScrollView(
         controller: _scrollController,
@@ -37,9 +43,12 @@ class ListAnswerFields extends StatelessWidget {
 
   answerFields() {
     List<Widget> arr = new List();
-    infoArr.forEach((element) {
-      arr.add(AnswerField(element));
-    });
+    arr.add(new NameAnswerField(infoArr.first));
+    if (classification != null && classification.isNotEmpty) {
+      classification.forEach((element) {
+        arr.add(new ClassificationAnswerField(element));
+      });
+    }
     return arr;
   }
 }

@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
 
-class AnswerFieldTabletDesktop extends StatelessWidget {
+class AnswerFieldMobile extends StatelessWidget {
   final String answerName;
-  const AnswerFieldTabletDesktop(
+  const AnswerFieldMobile(
     this.answerName, {
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final myController = TextEditingController();
+
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 30, right: 30),
+      padding: const EdgeInsets.only(top: 8.0),
       child: SizedBox(
         //padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
-        height: 70,
+        height: 40,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -34,10 +36,8 @@ class AnswerFieldTabletDesktop extends StatelessWidget {
                   ),
                 ),
                 decoration: BoxDecoration(
-                    color: colorAccent,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                    )),
+                  color: colorAccent,
+                ),
               ),
             ),
             Expanded(
@@ -46,6 +46,7 @@ class AnswerFieldTabletDesktop extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: Center(
                   child: TextField(
+                    controller: myController,
                     textInputAction: TextInputAction.go,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -62,9 +63,8 @@ class AnswerFieldTabletDesktop extends StatelessWidget {
                   ),
                 ),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(10))),
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
