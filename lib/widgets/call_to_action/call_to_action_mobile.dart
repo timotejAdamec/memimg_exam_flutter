@@ -67,7 +67,7 @@ class _CallToActionState extends State<CallToActionMobile> {
               onTap: () {
                 var pin = myController.text;
                 debugPrint("pin = " + pin);
-                dispose();
+                //dispose();
                 locator<NavigationService>()
                     .navigateToWithExamInfo(ExamRoute, pin);
               },

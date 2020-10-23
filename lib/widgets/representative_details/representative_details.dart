@@ -9,16 +9,22 @@ import 'representative_details_mobile.dart';
 class RepresentativeDetails extends StatelessWidget {
   final RepresentativeDetailsModel details;
   final ClassificationDetailsModel classification;
-  const RepresentativeDetails({Key key, this.details, this.classification})
+  final int representativeIndex;
+  const RepresentativeDetails(
+      {Key key, this.details, this.classification, this.representativeIndex})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       desktop: RepresentativeDetailsDesktop(
-          model: details, classification: classification),
+          representativeIndex: representativeIndex,
+          model: details,
+          classification: classification),
       mobile: RepresentativeDetailsMobile(
-          model: details, classification: classification),
+          representativeIndex: representativeIndex,
+          model: details,
+          classification: classification),
     );
   }
 }

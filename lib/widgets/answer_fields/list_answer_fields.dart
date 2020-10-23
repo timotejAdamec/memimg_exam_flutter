@@ -7,9 +7,11 @@ import 'classification/answer_field.dart';
 import 'name/name_answer_field.dart';
 
 class ListAnswerFields extends StatelessWidget {
+  final int representativeIndex;
   final List infoArr;
   final List classification;
   const ListAnswerFields(
+    this.representativeIndex,
     this.infoArr,
     this.classification, {
     Key key,
@@ -43,10 +45,13 @@ class ListAnswerFields extends StatelessWidget {
 
   answerFields() {
     List<Widget> arr = new List();
-    arr.add(new NameAnswerField(infoArr.first));
+    arr.add(new NameAnswerField(representativeIndex, infoArr.first));
     if (classification != null && classification.isNotEmpty) {
+      int index = 0;
       classification.forEach((element) {
-        arr.add(new ClassificationAnswerField(element));
+        arr.add(new ClassificationAnswerField(
+            representativeIndex, index + 1, element, infoArr[index + 1]));
+        index++;
       });
     }
     return arr;

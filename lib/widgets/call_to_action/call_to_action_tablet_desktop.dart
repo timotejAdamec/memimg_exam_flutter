@@ -71,7 +71,7 @@ class _CallToActionTabletDesktopState extends State<CallToActionTabletDesktop> {
               onTap: () {
                 var pin = myController.text;
                 debugPrint("pin = " + pin);
-                dispose();
+                //dispose();
                 locator<NavigationService>()
                     .navigateToWithExamInfo(ExamRoute, pin);
               },

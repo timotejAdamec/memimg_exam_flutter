@@ -4,17 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
 import 'package:flutter_poznavacka/datamodels/classification_details_model.dart';
 import 'package:flutter_poznavacka/datamodels/representative_details_model.dart';
+import 'package:flutter_poznavacka/datamodels/result_object_db.dart';
+import 'package:flutter_poznavacka/datamodels/result_object_db.dart';
+import 'package:flutter_poznavacka/dialog/blurry_dialog.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
 import 'package:flutter_poznavacka/widgets/representative_details/representative_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_ip/get_ip.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import '../../locator.dart';
+import 'package:http/http.dart' as http;
 
 class ExamView extends StatefulWidget {
   final String pin;
+  static List<List> answers;
 
   ExamView({Key key, this.pin}) : super(key: key);
   @override
@@ -30,8 +37,33 @@ class _ExamViewState extends State<ExamView> {
   ClassificationDetailsModel classification = new ClassificationDetailsModel();
   List<RepresentativeDetailsModel> representatives = new List();
 
+  //static List<String> answers = new List();
+
+  final myController = TextEditingController();
+  bool _nameEntered = false;
   bool _loaded = false;
   bool _error = false;
+  String _ipAddress = "IpAdress = ";
+  double _letterSize;
+  String _userName;
+  String _examDBID;
+  String _examCreatorID;
+
+  set letterSize(int letterSize) {
+    _letterSize = letterSize as double;
+  }
+
+  void getIpAdress() async {
+    final response = await http.get('https://api64.ipify.org');
+    if (response.statusCode == 200) {
+      setState(() {
+        _ipAddress += response.body +
+            "height" +
+            MediaQuery.of(context).size.height.toString();
+      });
+      print("IPADRESS = " + _ipAddress);
+    }
+  }
 
   void initializeFlutterFire() async {
     try {
@@ -49,13 +81,15 @@ class _ExamViewState extends State<ExamView> {
   void loadFSData() async {
     try {
       await FirebaseFirestore.instance
-          .collection("ActiveTest")
+          .collection("ActiveTests")
           .where("testCode", isEqualTo: widget.pin)
           .limit(1)
           .get()
           .then((querySnapshot) {
         QueryDocumentSnapshot doc = querySnapshot.docs.first;
         print("content = " + doc.get("content"));
+        _examDBID = doc.get("testDBID");
+        _examCreatorID = doc.get("userID");
         loadRepresentatives(doc);
         setState(() {
           _loaded = true;
@@ -71,6 +105,7 @@ class _ExamViewState extends State<ExamView> {
 
   @override
   void initState() {
+    //getIpAdress();
     initializeFlutterFire();
     loadFSData();
     super.initState();
@@ -84,22 +119,111 @@ class _ExamViewState extends State<ExamView> {
   @override
   Widget build(BuildContext context) {
     if (_error) {
+      locator<NavigationService>().goBack();
       print("ExamView somethingWentWrong()");
-      return somethingWentWrong();
+      //return somethingWentWrong();
     }
 
     if (!_loaded) {
-      print("ExamView loading()");
       return loading();
     }
 
-    print("ExamView examViewWidget()");
-    return examViewWidget();
+    if (_nameEntered) {
+      return examViewWidget();
+    } else {
+      return nameEnterWidget();
+    }
+  }
+
+  Widget nameEnterWidget() {
+    var boxWidth;
+    if (MediaQuery.of(context).size.width > 600) {
+      _letterSize = 20;
+      boxWidth = 400;
+    } else {
+      _letterSize = 15;
+      boxWidth = MediaQuery.of(context).size.width - 50;
+    }
+
+    return ResponsiveBuilder(builder: (context, sizingInformation) {
+      return Center(
+        child: SizedBox(
+          //padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
+          height: 100,
+          width: boxWidth,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+                  child: Center(
+                    child: TextField(
+                      textInputAction: TextInputAction.go,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          hintText: "Enter your name",
+                          hintStyle: TextStyle(
+                              color: Colors.grey, fontSize: _letterSize),
+                          border: InputBorder.none),
+                      style: TextStyle(
+                          fontSize: _letterSize,
+                          color: colorPrimaryDark,
+                          textBaseline: TextBaseline.alphabetic),
+                      controller: myController,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5))),
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: GestureDetector(
+                  onTap: () {
+                    _userName = myController.text;
+                    setState(() {
+                      _nameEntered = true;
+                    });
+                  },
+                  child: Container(
+                    child: Center(
+                      child: Text(
+                        "Done",
+                        style: TextStyle(
+                          fontSize: _letterSize,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: colorAccent,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(5))),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   Widget somethingWentWrong() {
     return Center(
-      child: Text("Error"),
+      child: Text(
+        "Error",
+        style: TextStyle(color: Colors.white, fontSize: _letterSize),
+      ),
     );
   }
 
@@ -138,6 +262,7 @@ class _ExamViewState extends State<ExamView> {
                     transform: Matrix4.identity()
                       ..rotateX(currentPageValue - index),
                     child: RepresentativeDetails(
+                        representativeIndex: index,
                         details: representatives[index],
                         classification: classification));
               } else if (index == currentPageValue.floor() + 1) {
@@ -145,11 +270,13 @@ class _ExamViewState extends State<ExamView> {
                   transform: Matrix4.identity()
                     ..rotateX(currentPageValue - index),
                   child: RepresentativeDetails(
+                      representativeIndex: index,
                       details: representatives[index],
                       classification: classification),
                 );
               } else {
                 return RepresentativeDetails(
+                    representativeIndex: index,
                     details: representatives[index],
                     classification: classification);
               }
@@ -214,12 +341,7 @@ class _ExamViewState extends State<ExamView> {
           color: colorSave,
           child: Text('Finish', style: TextStyle(fontSize: letterSize)),
           onPressed: () {
-            dismissDialog();
-            /*showDialog(
-                      context: context,
-                      builder: (context) => finishAlert(),
-                      barrierDismissible: true,
-                    );*/
+            _showDialog(context);
           },
         ),
       );
@@ -233,38 +355,61 @@ class _ExamViewState extends State<ExamView> {
     }
   }
 
-  finishAlert() {
-    return AlertDialog(
-      title: Text('Finish?'),
-      content: Text('Are you sure you want to finish the exam?'),
-      actions: [
-        FlatButton(
-            onPressed: dismissDialog(),
-            //onPressed: null,
-            child: Text("No")),
-        FlatButton(
-          //onPressed: finish(),
-          onPressed: null,
-          child: Text("Yes"),
-        )
-      ],
-      elevation: 24,
+  _showDialog(BuildContext context) {
+    VoidCallback continueCallBack = () => {
+          sendData(),
+        };
+    BlurryDialog alert = BlurryDialog(
+        "Finish", "Are you sure you want finish the exam?", continueCallBack);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+      barrierDismissible: true,
     );
   }
 
-  dismissDialog() {
-    myCallback(() {
-      Navigator.pop(context, true);
-    });
-  }
+  void sendData() async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(_examCreatorID)
+        .collection("Exams")
+        .doc(_examDBID)
+        .get()
+        .then((documentSnapshot) {
+      DocumentSnapshot doc = documentSnapshot;
+      if (doc.exists) {
+        bool finished = doc.get("finished");
+        if (!finished) {
+          int correctlyAnswered = 0;
+          for (int i = 0; i < ExamView.answers.length; i++) {
+            for (int k = 0; k < ExamView.answers[i].length; k++) {
+              if (ExamView.answers[i][k] == representatives[i].infoArr[k]) {
+                correctlyAnswered++;
+              }
+            }
+          }
+          String result = (correctlyAnswered.toString() +
+              '/' +
+              (representatives.length *
+                      (classification.classification.length + 1))
+                  .toString());
+          ResultObjectDB dbData = ResultObjectDB("web_user", result, _userName);
 
-  finish() {
-    locator<NavigationService>().navigateTo(HomeRoute);
-  }
+//TODO, udelat vyhodnoceni testu
 
-  void myCallback(Function callback) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      callback();
+          FirebaseFirestore.instance
+              .collection("Users")
+              .doc(_examCreatorID)
+              .collection("Exams")
+              .doc(_examDBID)
+              .collection("Results")
+              .add(dbData.toMap());
+          Navigator.of(context).pop();
+        }
+      }
     });
   }
 
@@ -272,12 +417,21 @@ class _ExamViewState extends State<ExamView> {
     representatives = (json.decode(doc.get("content")) as List)
         .map((i) => RepresentativeDetailsModel.fromJson(i))
         .toList();
+    ExamView.answers = new List(representatives.length);
     print("predeserialization");
     try {
-      if (doc.get("classification") == String) {
+      if (doc.get("classification") is String) {
         print("deserialization decode is String");
         classification = ClassificationDetailsModel.fromJson(
             jsonDecode(doc.get("classification")));
+        for (int i = 0; i < ExamView.answers.length; i++) {
+          ExamView.answers[i] =
+              new List(classification.classification.length + 1);
+        }
+      } else {
+        for (int i = 0; i < ExamView.answers.length; i++) {
+          ExamView.answers[i] = new List(1);
+        }
       }
       print("deserialization try end");
     } catch (e) {

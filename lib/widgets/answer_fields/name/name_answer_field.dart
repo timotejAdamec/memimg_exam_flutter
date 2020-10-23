@@ -6,8 +6,10 @@ import 'name_answer_field_mobile.dart';
 import 'name_anwser_field_tablet_dekstop.dart';
 
 class NameAnswerField extends StatelessWidget {
+  final int representativeIndex;
   final String answerName;
   const NameAnswerField(
+    this.representativeIndex,
     this.answerName, {
     Key key,
   }) : super(key: key);
@@ -15,8 +17,8 @@ class NameAnswerField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      mobile: NameAnswerFieldMobile(answerName),
-      desktop: NameAnswerFieldTabletDesktop(answerName),
+      mobile: NameAnswerFieldMobile(representativeIndex, answerName),
+      desktop: NameAnswerFieldTabletDesktop(representativeIndex, answerName),
     );
   }
 }

@@ -1,17 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
+import 'package:flutter_poznavacka/views/exam/exam_view.dart';
 
-class AnswerFieldMobile extends StatelessWidget {
+class AnswerFieldMobile extends StatefulWidget {
+  final int representativeIndex;
+  final int answerIndex;
   final String answerName;
+  final String correctAnswer;
   const AnswerFieldMobile(
-    this.answerName, {
+    this.representativeIndex,
+    this.answerIndex,
+    this.answerName,
+    this.correctAnswer, {
     Key key,
   }) : super(key: key);
+  _AnswerFieldMobileState createState() => _AnswerFieldMobileState();
+}
+
+class _AnswerFieldMobileState extends State<AnswerFieldMobile> {
+  bool answered = false;
+  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final myController = TextEditingController();
+    void setAsAnswered() {
+      ExamView.answers[widget.representativeIndex][widget.answerIndex] =
+          widget.correctAnswer;
+      myController.text = widget.correctAnswer;
+      setState(() {
+        answered = true;
+      });
+    }
+
+    //first appearance check
+    if (ExamView.answers[widget.representativeIndex][widget.answerIndex] !=
+        null) {
+      myController.text =
+          ExamView.answers[widget.representativeIndex][widget.answerIndex];
+      if (widget.correctAnswer == myController.text) {
+        setAsAnswered();
+      }
+    }
+
+    //user input check
+    myController.addListener(() {
+      ExamView.answers[widget.representativeIndex][widget.answerIndex] =
+          myController.text;
+      if (myController.text.toLowerCase().trim() ==
+          widget.correctAnswer.toLowerCase().trim()) {
+        setAsAnswered();
+      }
+    });
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
@@ -26,7 +66,7 @@ class AnswerFieldMobile extends StatelessWidget {
               child: Container(
                 child: Center(
                   child: Text(
-                    answerName,
+                    widget.answerName,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
@@ -46,6 +86,7 @@ class AnswerFieldMobile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: Center(
                   child: TextField(
+                    readOnly: answered,
                     controller: myController,
                     textInputAction: TextInputAction.go,
                     keyboardType: TextInputType.number,
@@ -63,7 +104,7 @@ class AnswerFieldMobile extends StatelessWidget {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: (answered) ? Colors.green : Colors.white,
                 ),
               ),
             ),

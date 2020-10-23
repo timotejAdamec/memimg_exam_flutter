@@ -6,7 +6,9 @@ import 'package:flutter_poznavacka/widgets/answer_fields/list_answer_fields.dart
 class RepresentativeDetailsDesktop extends StatelessWidget {
   final RepresentativeDetailsModel model;
   final ClassificationDetailsModel classification;
-  const RepresentativeDetailsDesktop({Key key, this.model, this.classification})
+  final int representativeIndex;
+  const RepresentativeDetailsDesktop(
+      {Key key, this.model, this.classification, this.representativeIndex})
       : super(key: key);
 
   @override
@@ -25,8 +27,8 @@ class RepresentativeDetailsDesktop extends StatelessWidget {
         ),
         Expanded(
           child: Center(
-            child:
-                ListAnswerFields(model.infoArr, classification.classification),
+            child: ListAnswerFields(representativeIndex, model.infoArr,
+                classification.classification),
           ),
         )
       ],
