@@ -5,7 +5,7 @@ import 'package:flutter_poznavacka/views/home/home_view.dart';
 
 import 'route_names.dart';
 
-class Router {
+/*class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case HomeRoute:
@@ -24,9 +24,8 @@ class Router {
                 ));
     }
   }
-}
+}*/
 
-/*
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -35,7 +34,11 @@ class Router {
       case PrivacyRoute:
         return _getPageRoute(PrivacyView(), settings);
       case ExamRoute:
-        return _getPageRoute(ExamView(), settings);
+        return _getPageRoute(
+            ExamView(
+              pin: settings.arguments,
+            ),
+            settings);
       default:
         return _getPageRoute(HomeView(), settings);
     }
@@ -65,4 +68,4 @@ class _FadeRoute extends PageRouteBuilder {
               Widget child,
             ) =>
                 FadeTransition(opacity: animation, child: child));
-}*/
+}

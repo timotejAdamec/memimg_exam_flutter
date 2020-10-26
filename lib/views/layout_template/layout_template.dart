@@ -10,7 +10,8 @@ import 'package:flutter_poznavacka/widgets/navigation_drawer/navigation_drawer.d
 import 'package:responsive_builder/responsive_builder.dart';
 
 class LayoutTemplate extends StatelessWidget {
-  const LayoutTemplate({Key key}) : super(key: key);
+  final Widget child;
+  const LayoutTemplate({Key key, @required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +26,12 @@ class LayoutTemplate extends StatelessWidget {
             children: <Widget>[
               NavigationBar(),
               Expanded(
-                child: Navigator(
+                /*child: Navigator(
                   key: locator<NavigationService>().navigatorKey,
                   onGenerateRoute: route.Router.generateRoute,
                   initialRoute: HomeRoute,
-                ),
+                ),*/
+                child: child,
               )
             ],
           ),

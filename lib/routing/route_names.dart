@@ -1,3 +1,3 @@
-const String HomeRoute = 'Home';
-const String PrivacyRoute = 'Privacy';
-const String ExamRoute = 'Exam';
+const String HomeRoute = '/home';
+const String PrivacyRoute = '/privacy';
+const String ExamRoute = '/exam';

@@ -15,15 +15,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Memimg',
-        theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: Theme.of(context)
-                .textTheme
-                .apply(fontFamily: 'lineto circular')),
-        /*navigatorKey: locator<NavigationService>().navigatorKey,
+      title: 'Memimg',
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          textTheme:
+              Theme.of(context).textTheme.apply(fontFamily: 'lineto circular')),
+      /*navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.Router.generateRoute,
         initialRoute: HomeRoute,*/
-        home: LayoutTemplate());
+      builder: (context, child) => LayoutTemplate(child: child),
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.Router.generateRoute,
+      initialRoute: HomeRoute,
+    );
+    //home: LayoutTemplate());
   }
 }

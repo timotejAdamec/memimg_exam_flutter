@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "1.4.1"
   build_runner:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
@@ -222,26 +222,19 @@ packages:
       name: flutter_screenutil
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0"
+    version: "3.2.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
-  get_ip:
-    dependency: "direct main"
-    description:
-      name: get_ip
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0"
   get_it:
     dependency: "direct main"
     description:
       name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "5.0.1"
   glob:
     dependency: transitive
     description:
@@ -299,7 +292,7 @@ packages:
     source: hosted
     version: "3.1.0"
   json_serializable:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"
@@ -361,6 +354,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  observable_ish:
+    dependency: transitive
+    description:
+      name: observable_ish
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
   package_config:
     dependency: transitive
     description:
@@ -402,14 +402,14 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5"
+    version: "4.3.2+2"
   provider_architecture:
     dependency: "direct main"
     description:
       name: provider_architecture
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "1.1.1+1"
   pub_semver:
     dependency: transitive
     description:
@@ -437,7 +437,7 @@ packages:
       name: responsive_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.3.0"
   shelf:
     dependency: transitive
     description:
@@ -549,5 +549,5 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=2.10.0-110 <=2.11.0-234.0.dev"
-  flutter: ">=1.12.13+hotfix.5 <2.0.0"
+  dart: ">=2.10.0-110 <=2.11.0-213.1.beta"
+  flutter: ">=1.16.0 <2.0.0"

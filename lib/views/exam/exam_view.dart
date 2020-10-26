@@ -12,7 +12,6 @@ import 'package:flutter_poznavacka/services/navigation_service.dart';
 import 'package:flutter_poznavacka/widgets/representative_details/representative_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get_ip/get_ip.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:responsive_builder/responsive_builder.dart';
