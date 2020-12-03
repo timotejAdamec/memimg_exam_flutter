@@ -25,6 +25,7 @@ class _AnswerFieldTabletDesktopState extends State<AnswerFieldTabletDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    /*
     void setAsAnswered() {
       ExamView.answers[widget.representativeIndex][widget.answerIndex] =
           widget.correctAnswer;
@@ -52,6 +53,11 @@ class _AnswerFieldTabletDesktopState extends State<AnswerFieldTabletDesktop> {
           widget.correctAnswer.toLowerCase().trim()) {
         setAsAnswered();
       }
+    });*/
+
+    myController.addListener(() {
+      ExamView.answers[widget.representativeIndex][widget.answerIndex] =
+          myController.text;
     });
 
     return Padding(
@@ -89,7 +95,7 @@ class _AnswerFieldTabletDesktopState extends State<AnswerFieldTabletDesktop> {
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: Center(
                   child: TextField(
-                    readOnly: answered,
+                    //readOnly: answered,
                     controller: myController,
                     textInputAction: TextInputAction.go,
                     keyboardType: TextInputType.number,
@@ -107,7 +113,8 @@ class _AnswerFieldTabletDesktopState extends State<AnswerFieldTabletDesktop> {
                   ),
                 ),
                 decoration: BoxDecoration(
-                    color: (answered) ? Colors.green : Colors.white,
+                    color: Colors.white,
+                    //color: (answered) ? Colors.green : Colors.white,
                     borderRadius:
                         BorderRadius.only(topRight: Radius.circular(10))),
               ),

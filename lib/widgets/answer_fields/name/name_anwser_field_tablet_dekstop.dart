@@ -23,7 +23,7 @@ class _NameAnswerFieldTabletDesktopState
     bool answered = false;
     final myController = TextEditingController();
 
-    void setAsAnswered() {
+    /*void setAsAnswered() {
       ExamView.answers[widget.representativeIndex][0] = widget.answerName;
       myController.text = widget.answerName;
       setState(() {
@@ -46,6 +46,10 @@ class _NameAnswerFieldTabletDesktopState
           widget.answerName.toLowerCase().trim()) {
         setAsAnswered();
       }
+    });*/
+
+    myController.addListener(() {
+      ExamView.answers[widget.representativeIndex][0] = myController.text;
     });
 
     return Padding(
@@ -57,7 +61,7 @@ class _NameAnswerFieldTabletDesktopState
             padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
             child: Center(
               child: TextField(
-                readOnly: answered,
+                //readOnly: answered,
                 controller: myController,
                 textInputAction: TextInputAction.go,
                 keyboardType: TextInputType.number,
@@ -75,7 +79,8 @@ class _NameAnswerFieldTabletDesktopState
               ),
             ),
             decoration: BoxDecoration(
-              color: (answered) ? Colors.green : Colors.white,
+              color: Colors.white,
+              //color: (answered) ? Colors.green : Colors.white,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),

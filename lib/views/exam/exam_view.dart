@@ -20,7 +20,7 @@ import 'package:http/http.dart' as http;
 
 class ExamView extends StatefulWidget {
   final String pin;
-  static List<List> answers;
+  static List<List<String>> answers;
 
   ExamView({Key key, this.pin}) : super(key: key);
   @override
@@ -385,7 +385,8 @@ class _ExamViewState extends State<ExamView> {
           int correctlyAnswered = 0;
           for (int i = 0; i < ExamView.answers.length; i++) {
             for (int k = 0; k < ExamView.answers[i].length; k++) {
-              if (ExamView.answers[i][k] == representatives[i].infoArr[k]) {
+              if (ExamView.answers[i][k].toLowerCase().trim() ==
+                  representatives[i].infoArr[k].toLowerCase().trim()) {
                 correctlyAnswered++;
               }
             }
@@ -397,7 +398,7 @@ class _ExamViewState extends State<ExamView> {
                   .toString());
           ResultObjectDB dbData = ResultObjectDB("web_user", result, _userName);
 
-//TODO, udelat vyhodnoceni testu
+//TODO, udelat vyhodnoceni testu?
 
           FirebaseFirestore.instance
               .collection("Users")

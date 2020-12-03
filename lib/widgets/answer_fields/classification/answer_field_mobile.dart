@@ -24,6 +24,7 @@ class _AnswerFieldMobileState extends State<AnswerFieldMobile> {
 
   @override
   Widget build(BuildContext context) {
+    /*
     void setAsAnswered() {
       ExamView.answers[widget.representativeIndex][widget.answerIndex] =
           widget.correctAnswer;
@@ -32,6 +33,7 @@ class _AnswerFieldMobileState extends State<AnswerFieldMobile> {
         answered = true;
       });
     }
+
 
     //first appearance check
     if (ExamView.answers[widget.representativeIndex][widget.answerIndex] !=
@@ -51,6 +53,13 @@ class _AnswerFieldMobileState extends State<AnswerFieldMobile> {
           widget.correctAnswer.toLowerCase().trim()) {
         setAsAnswered();
       }
+    });
+    */
+
+    //user input check
+    myController.addListener(() {
+      ExamView.answers[widget.representativeIndex][widget.answerIndex] =
+          myController.text;
     });
 
     return Padding(
@@ -86,7 +95,7 @@ class _AnswerFieldMobileState extends State<AnswerFieldMobile> {
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: Center(
                   child: TextField(
-                    readOnly: answered,
+                    //readOnly: answered,
                     controller: myController,
                     textInputAction: TextInputAction.go,
                     keyboardType: TextInputType.number,
@@ -103,9 +112,9 @@ class _AnswerFieldMobileState extends State<AnswerFieldMobile> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                decoration: BoxDecoration(
-                  color: (answered) ? Colors.green : Colors.white,
-                ),
+                decoration: BoxDecoration(color: Colors.white
+                    //color: (answered) ? Colors.green : Colors.white,
+                    ),
               ),
             ),
           ],

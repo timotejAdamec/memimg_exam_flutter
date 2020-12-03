@@ -16,7 +16,7 @@ class NavigationBarMobile extends StatelessWidget {
             iconSize: 20,
             icon: Icon(Icons.menu),
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
           NavBarLogo()
         ],

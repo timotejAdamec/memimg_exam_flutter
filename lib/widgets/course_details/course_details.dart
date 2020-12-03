@@ -9,15 +9,15 @@ class CourseDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {
       var textAlignment =
-          sizingInformation.deviceScreenType == DeviceScreenType.Desktop
+          sizingInformation.deviceScreenType == DeviceScreenType.desktop
               ? TextAlign.left
               : TextAlign.center;
       /*double titleSize =
-          sizingInformation.deviceScreenType == DeviceScreenType.Mobile
+          sizingInformation.deviceScreenType == DeviceScreenType.mobile
               ? 50
               : 80;
       double descriptionSize =
-          sizingInformation.deviceScreenType == DeviceScreenType.Mobile
+          sizingInformation.deviceScreenType == DeviceScreenType.mobile
               ? 16
               : 21;*/
 
@@ -45,7 +45,7 @@ class CourseDetails extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "Join an exam by entering the pin provided by the user that started the exam (e.g., teacher)",
+                "Join an exam by entering the pin provided by the user that started the exam (e.g. teacher)",
                 style: descriptionTextStyle(sizingInformation.deviceScreenType),
                 textAlign: textAlignment)
           ],

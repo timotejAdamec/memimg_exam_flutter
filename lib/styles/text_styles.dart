@@ -4,19 +4,18 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 /// Returns the style for a page title based on the [deviceScreenType] passed in.
 TextStyle titleTextStyle(DeviceScreenType deviceScreenType) {
-  double titleSize = deviceScreenType == DeviceScreenType.Mobile ? 50 : 80;
+  double titleSize = deviceScreenType == DeviceScreenType.mobile ? 50 : 80;
   return TextStyle(
-      fontWeight: FontWeight.w800, height: 0.9, fontSize: titleSize, color: Colors.white);
+      fontWeight: FontWeight.w800,
+      height: 0.9,
+      fontSize: titleSize,
+      color: Colors.white);
 }
 
 /// Return the style for description text on a page based on the [deviceScreenType] passed in.
 TextStyle descriptionTextStyle(DeviceScreenType deviceScreenType) {
   double descriptionSize =
-      deviceScreenType == DeviceScreenType.Mobile ? 16 : 21;
+      deviceScreenType == DeviceScreenType.mobile ? 16 : 21;
 
-  return TextStyle(
-    fontSize: descriptionSize,
-    height: 1.7,
-    color: Colors.white
-  );
+  return TextStyle(fontSize: descriptionSize, height: 1.7, color: Colors.white);
 }
