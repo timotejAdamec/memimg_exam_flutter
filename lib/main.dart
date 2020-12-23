@@ -11,7 +11,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,14 +19,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme:
               Theme.of(context).textTheme.apply(fontFamily: 'lineto circular')),
-      /*navigatorKey: locator<NavigationService>().navigatorKey,
-        onGenerateRoute: router.Router.generateRoute,
-        initialRoute: HomeRoute,*/
       builder: (context, child) => LayoutTemplate(child: child),
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.Router.generateRoute,
       initialRoute: HomeRoute,
     );
-    //home: LayoutTemplate());
   }
 }

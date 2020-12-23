@@ -6,9 +6,9 @@ import 'package:flutter_poznavacka/datamodels/classification_details_model.dart'
 import 'package:flutter_poznavacka/datamodels/representative_details_model.dart';
 import 'package:flutter_poznavacka/datamodels/result_object_db.dart';
 import 'package:flutter_poznavacka/datamodels/result_object_db.dart';
-import 'package:flutter_poznavacka/dialog/blurry_dialog.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
+import 'package:flutter_poznavacka/widgets/dialog/blurry_dialog.dart';
 import 'package:flutter_poznavacka/widgets/representative_details/representative_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
