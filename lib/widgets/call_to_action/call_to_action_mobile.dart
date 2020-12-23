@@ -4,7 +4,7 @@ import 'package:flutter_poznavacka/datamodels/exam_enter_info.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
 import 'package:flutter_poznavacka/services/navigation_service.dart';
 
-import '../../locator.dart';
+import '../../services/locator.dart';
 
 class CallToActionMobile extends StatefulWidget {
   CallToActionMobile(

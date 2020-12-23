@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/constants/app_colors.dart';
 
-import '../../locator.dart';
+import '../../services/locator.dart';
 import '../../routing/route_names.dart';
 import '../../services/navigation_service.dart';
 

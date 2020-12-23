@@ -15,7 +15,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import '../../locator.dart';
+import '../../services/locator.dart';
 import 'package:http/http.dart' as http;
 
 class ExamView extends StatefulWidget {

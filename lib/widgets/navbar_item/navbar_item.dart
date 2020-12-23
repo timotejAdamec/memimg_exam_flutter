@@ -4,7 +4,7 @@ import 'package:flutter_poznavacka/services/navigation_service.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../locator.dart';
+import '../../services/locator.dart';
 import 'navbar_item_desktop.dart';
 import 'navbar_item_mobile.dart';
 
