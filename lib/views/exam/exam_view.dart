@@ -385,9 +385,12 @@ class _ExamViewState extends State<ExamView> {
           int correctlyAnswered = 0;
           for (int i = 0; i < ExamView.answers.length; i++) {
             for (int k = 0; k < ExamView.answers[i].length; k++) {
-              if (ExamView.answers[i][k].toLowerCase().trim() ==
-                  representatives[i].infoArr[k].toLowerCase().trim()) {
-                correctlyAnswered++;
+              // ExamView answers are answeres as answered by the user
+              if (ExamView.answers[i][k] != null) {
+                if (ExamView.answers[i][k].toLowerCase().trim() ==
+                    representatives[i].infoArr[k].toLowerCase().trim()) {
+                  correctlyAnswered++;
+                }
               }
             }
           }
