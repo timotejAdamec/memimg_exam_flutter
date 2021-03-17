@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_poznavacka/services/locator.dart';
 import 'package:flutter_poznavacka/routing/route_names.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_poznavacka/views/layout_template/layout_template.dart';
 
 void main() {
   setupLocator();
+  Firebase.initializeApp();
   runApp(MyApp());
 }
 
