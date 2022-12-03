@@ -28,7 +28,7 @@ class CourseDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Image memorisation exam.',
+              'Image recognition exam.',
               style: titleTextStyle(sizingInformation.deviceScreenType),
               textAlign: textAlignment,
             ),
